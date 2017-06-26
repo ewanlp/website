@@ -1,10 +1,11 @@
 <?php
 require_once 'class.user.php';
 $user = new USER();
+//used to reset a password, if forgotten (they clicked on forgot my pass, then the link to this page from the email)
 
 if(empty($_GET['id']) && empty($_GET['code']))
 {
- $user->redirect('index.php');
+ $user->redirect('index.php');//the user doesn't have codes, send them to the homepage
 }
 
 if(isset($_GET['id']) && isset($_GET['code']))
@@ -12,10 +13,12 @@ if(isset($_GET['id']) && isset($_GET['code']))
  $id = base64_decode($_GET['id']);
  $code = $_GET['code'];
  
+ //query that gets the username from tbl 
  $stmt = $user->runQuery("SELECT * FROM tbl_users WHERE userID=:uid AND tokenCode=:token");
  $stmt->execute(array(":uid"=>$id,":token"=>$code));
  $rows = $stmt->fetch(PDO::FETCH_ASSOC);
  
+ //if it's all good, then show reset pass button.
  if($stmt->rowCount() == 1)
  {
   if(isset($_POST['btn-reset-pass']))
@@ -27,11 +30,12 @@ if(isset($_GET['id']) && isset($_GET['code']))
    {
     $msg = "<div class='alert alert-block'>
       <button class='close' data-dismiss='alert'>&times;</button>
-      <strong>Sorry!</strong>  Password Doesn't match. 
+      <strong>Sorry!</strong>  Password Doesn't match. Try again.
       </div>";
    }
    else
    {
+   //if they typed a reasonable pass, then query updates it in table for them
     $stmt = $user->runQuery("UPDATE tbl_users SET userPass=:upass WHERE userID=:uid");
     $stmt->execute(array(":upass"=>$cpass,":uid"=>$rows['userID']));
     
