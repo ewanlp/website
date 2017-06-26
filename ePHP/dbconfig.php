@@ -1,4 +1,5 @@
 <?php
+#creates the class with db con info
 class Database
 {
      
@@ -10,7 +11,7 @@ class Database
      
     public function dbConnection()
  {
-     
+     #sets the conn var to null
      $this->conn = null;    
         try
   {
@@ -21,7 +22,7 @@ class Database
   {
             echo "Connection error: " . $exception->getMessage();
         }
-         
+         #returns a connection to the db
         return $this->conn;
     }
 }
