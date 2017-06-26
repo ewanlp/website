@@ -3,19 +3,22 @@ session_start();
 require_once 'class.user.php';
 $user_login = new USER();
 
+//if the user is already logged in, send them to the home page.
+//should go to landing (index) where they're given option to sign in with buttons and such.
 if($user_login->is_logged_in()!="")
 {
- $user_login->redirect('../Pages/home.php');
+ $user_login->redirect('../pages/home.php');
 }
 
+//if button login aleady has info, save info in v's
 if(isset($_POST['btn-login']))
 {
- $email = trim($_POST['txtemail']);
+ $email = trim($_POST['txtemail']);//trim removes any white space
  $upass = trim($_POST['txtupass']);
  
- if($user_login->login($email,$upass))
+ if($user_login->login($email,$upass))//tries to sign the user in, and send them to home page
  {
-  $user_login->redirect('../Pages/home.php');
+  $user_login->redirect('../pages/home.php');
  }
 }
 ?>
@@ -37,19 +40,19 @@ if(isset($_POST['btn-login']))
   <body id="login">
     <div class="container">
   <?php 
-  if(isset($_GET['inactive']))
+  if(isset($_GET['inactive']))//if the user was labeled as inactive from user class...
   {
    ?>
             <div class='alert alert-error'>
     <button class='close' data-dismiss='alert'>&times;</button>
-    <strong>Sorry!</strong> This Account is not Activated Go to your Inbox and Activate it. 
+    <strong>Sorry!</strong> This account is not activated Go to your Inbox and Activate it. 
    </div>
             <?php
   }
   ?>
         <form class="form-signin" method="post">
         <?php
-        if(isset($_GET['error']))
+        if(isset($_GET['error']))//if there was an error with logging in...
   {
    ?>
             <div class='alert alert-success'>
