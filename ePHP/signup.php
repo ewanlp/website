@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once 'class.user.php';
-
+//Page where users sign up - should be the same as the landing page(same image and everything, or exact same page).
 $reg_user = new USER();
 
 if($reg_user->is_logged_in()!="")
@@ -41,7 +41,7 @@ if(isset($_POST['btn-signup']))
    $message = "     
       Hello $uname,
       <br /><br />
-      Welcome to the Piñon 1W Website!<br/>
+      Welcome to the PiÃ±on 1W Website!<br/>
       To complete your registration  please click following link<br/>
       <br /><br />
       <a href='http://www.SITE_URL.com/verify.php?id=$id&code=$code'>Click HERE to Activate :)</a>
@@ -61,7 +61,7 @@ if(isset($_POST['btn-signup']))
   }
   else
   {
-   echo "sorry , Query could no execute...";
+   echo "sorry , Query could not execute...";
   }  
  }
 }
@@ -69,7 +69,7 @@ if(isset($_POST['btn-signup']))
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Signup | Coding Cage</title>
+    <title>Pinon 1W | Sign up</title>
     <!-- Bootstrap -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
