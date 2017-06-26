@@ -30,7 +30,7 @@ if(isset($_GET['id']) && isset($_GET['code']))
    $msg = "
              <div class='alert alert-success'>
        <button class='close' data-dismiss='alert'>&times;</button>
-       <strong>WoW !</strong>  Your Account is Now Activated, how about that : <a href='index.php'>Login here</a>
+       <strong>Wow !</strong>  Your Account is Now Activated, how about that : <a href='index.php'>Login here</a>
           </div>
           "; 
   }
