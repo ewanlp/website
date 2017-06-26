@@ -1,13 +1,17 @@
 <?php
 session_start();
 require_once 'class.user.php';
+//requires a the user class, then makes a new user. Starts the session b/c we're actually doing something here!
 $user = new USER();
 
+//if the user is already logged in, they can't have forgotten their password! (They can reset it in another page)
 if($user->is_logged_in()!="")
 {
  $user->redirect('../Pages/home.html');
 }
 
+//gets user info thru post, if btn-submit is set, then it takes the data from that form
+//and checks if the email exists. Runs a query and generates a random code to send to the user.
 if(isset($_POST['btn-submit']))
 {
  $email = $_POST['txtemail'];
@@ -30,12 +34,14 @@ if(isset($_POST['btn-submit']))
        <br /><br />
        Click Following Link To Reset Your Password 
        <br /><br />
-       <a href='http://www.SITEURL.com/resetpass.php?id=$id&code=$code'>click here to reset your password</a>
+       <a href='http://www.cs.colostate.edu/~ewanlp/resetpass.php?id=$id&code=$code'>click here to reset your password</a>
        <br /><br />
        Thank you :)
        ";
   $subject = "Password Reset, Sustainability Wesbsite";
   
+  //Sends the email to the user with the message and subject.
+  //sends them to resetPass site with the id and code set (they were already generated)
   $user->send_mail($email,$message,$subject);
   
   $msg = "<div class='alert alert-success'>
@@ -48,11 +54,12 @@ if(isset($_POST['btn-submit']))
  {
   $msg = "<div class='alert alert-danger'>
      <button class='close' data-dismiss='alert'>&times;</button>
-     <strong>Sorry!</strong>  the email provided was not found not found. Please try again. 
+     <strong>Sorry!</strong>  The email provided was not found not found. Please try again. 
        </div>";
  }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -82,7 +89,7 @@ if(isset($_POST['btn-submit']))
    {
     ?>
                <div class='alert alert-info'>
-    Please enter your email address. You will receive a link to create a new password via email.!
+    Please enter your email address. You will receive a link to create a new password via email!
     </div>  
                 <?php
    }
