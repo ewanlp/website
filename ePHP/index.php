@@ -51,17 +51,16 @@ if(isset($_POST['btn-login']))
   }
   ?>
         <form class="form-signin" method="post">
-        <?php
-        if(isset($_GET['error']))//if there was an error with logging in...
-  {
+   <?php
+         if(isset($_GET['error'])){//if there was an error with logging in...
    ?>
             <div class='alert alert-success'>
-    <button class='close' data-dismiss='alert'>&times;</button>
-    <strong>Wrong Details!</strong> 
-   </div>
-            <?php
-  }
-  ?>
+             <button class='close' data-dismiss='alert'>&times;</button>
+             <strong>Wrong Details!</strong> 
+            </div>
+          <?php
+         }
+          ?>
         <h2 class="form-signin-heading">Sign In.</h2><hr />
         <input type="email" class="input-block-level" placeholder="Email address" name="txtemail" required />
         <input type="password" class="input-block-level" placeholder="Password" name="txtupass" required />
