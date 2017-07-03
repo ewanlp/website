@@ -3,7 +3,7 @@
 require_once 'dbconfig.php';
 #start of user class
 class USER
-{ 
+{
 
  private $conn;
  
@@ -28,15 +28,30 @@ class USER
   $stmt = $this->conn->lastInsertId();
   return $stmt;
  }
+
+ 
+ public function guest() {
+	 
+	 $_SESSION['guest'] = true;
+ }
+ 
+ public function checkGuest() {
+	 if (isset($_SESSION['guest'])) {
+		 return true;
+	 }
+	 return false;
+ }
  
  //function that takes user info, and executes it. This will put info in the user table! Makes a new user in db
- public function register($uname,$email,$upass,$code)
+ public function register($first,$last,$uname,$email,$upass,$code)
  {
   try
   {       
    $password = md5($upass);
-   $stmt = $this->conn->prepare("INSERT INTO tbl_users(userName,userEmail,userPass,tokenCode) 
-                                                VALUES(:user_name, :user_mail, :user_pass, :active_code)");
+   $stmt = $this->conn->prepare("INSERT INTO tbl_users(fName,lName,userName,userEmail,userPass,tokenCode) 
+                                                VALUES(:fN, :lN, :user_name, :user_mail, :user_pass, :active_code)");
+   $stmt->bindparam(":fN",$first);
+   $stmt->bindparam(":lN",$last);
    $stmt->bindparam(":user_name",$uname);
    $stmt->bindparam(":user_mail",$email);
    $stmt->bindparam(":user_pass",$password);
@@ -124,25 +139,30 @@ class USER
   $_SESSION['userSession'] = false;
  }
  
- //the mailer function, that is used as template to send email
- function send_mail($email,$message,$subject)
- {      
-  //the phpmailer class is required to send the email.
-  require_once('mailer/class.phpmailer.php');
-  $mail = new PHPMailer();
-  $mail->IsSMTP(); 
-  $mail->SMTPDebug  = 0;                     
-  $mail->SMTPAuth   = true;                  
-  $mail->SMTPSecure = "ssl";                 
-  $mail->Host       = "smtp.gmail.com";      
-  $mail->Port       = 465;             
-  $mail->AddAddress($email);
-  $mail->Username="ewanlp@gmail.com";  
-  $mail->Password="RaP1wtbtewS1fA";            
-  $mail->SetFrom('ewanlp@gmail.com','Luke Ewan');
-  $mail->AddReplyTo("ewanlp@gmail.com","Luke Ewan");
-  $mail->Subject    = $subject;
-  $mail->MsgHTML($message);
-  $mail->Send();
- } 
+
+  function send_mail($email,$message,$subject) {
+	require '../mailer/class.phpmailer.php';
+	require '../mailer/class.smtp.php';
+	
+	$mail = new PHPMailer(); // create a new object
+	$mail->IsSMTP(); // enable SMTP
+	$mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
+	$mail->SMTPAuth = true; // authentication enabled
+	$mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for Gmail
+	$mail->Host = "smtp.gmail.com";
+	$mail->Port = 465; // or 587
+	$mail->IsHTML(true);
+	$mail->Username = "ewanlp@gmail.com";
+	$mail->Password = "RaP1wtbtewS1fA";
+	$mail->SetFrom("ewanlp@gmail.com");
+	$mail->Subject($subject);
+	$mail->Body = $message;
+	$mail->AddAddress($email);
+
+	 if(!$mail->Send()) {
+		echo "Mailer Error: " . $mail->ErrorInfo;
+	 } else {
+		echo "Message has been sent";
+	 }
+  }
 }
