@@ -1,4 +1,19 @@
-<!DOCTYPE html>
+<?php
+session_start();
+require_once '../ePHP/class.user.php';
+$user_home = new USER();
+
+
+/*****************     Check if user guest, or if they're not logged in     *****************/
+
+if((!$user_home->is_logged_in()) && ($user_home->checkGuest()))
+{
+	$user_home->redirect('../index.php');
+}
+
+
+?>
+
 <html lang="en">
 <head>
   <!-- Theme Made By www.w3schools.com - No Copyright -->
@@ -40,7 +55,7 @@
             <li><a href="#">and even moreeee</a></li> 
           </ul>
         </li>
-        <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
+        <li><a href="../ePHP/logout.php"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
       </ul>
     </div>
   </div>
@@ -112,7 +127,7 @@
     <div class="col-sm-6">
       <p class="text-center" style="font-size: 30px;"><strong>Green Warrior</strong></p><br>
       <a href="#demo" data-toggle="collapse">
-        <img src="../img/gW.png" class="img person" alt="Green Warrior" width="400" height="350">
+        <img src="../img/gW.png" class="img person" alt="Green Warrior" width="400" height="349">
       </a>
       <div id="demo" class="collapse">
         <p style="color: #1d7a0f;">Green Warrior is a campaign held by the Eco Leader program here on campus, in the Fall. The goal of the campaign is for <strong>you</strong> to consider your everyday habits and how they impact the environment</p>
@@ -122,11 +137,11 @@
     <div class="col-sm-6">
       <p class="text-center" style="font-size: 30px;"><strong>Eco Leaders</strong></p><br>
       <a href="#demo2" data-toggle="collapse">
-        <img src="../img/eco-leaders-text.png" class="img person" alt="Eco Leader" width="400" height="350">
+        <img src="../img/eco-leaders-text.png" class="img person" alt="Eco Leader" width="400" height="349">
       </a>
       <div id="demo2" class="collapse">
         <p style="color: #1d7a0f;">The Eco Leader program is an on-campus organization that raises awareness of sustainability in the residence halls. There is an Eco Leader living in every residence hall on campus (the Eco Leader of our hall, Saphyre, lives on our floor).</p>
-        <p style="color: #1d7a0f;">They hold numerous events and campaigns that you can get involved in, just reach out to Luke or Saphyre!</p>
+        <p style="color: #1d7a0f;">They hold numerous events and campaigns that you can get involved in, just reach out to Saphyre or Luke!</p>
       </div>
     </div>
   </div>
@@ -275,36 +290,27 @@
 
 <!-- Section here about how sust CSU is with modal! -->
 <div class="cotainer">
- <div class="row">
-  <div class="col-sm-8" style="left:350px; top: 40px;">
-   <h2 id="CSU" style="color: #1d7a0f;">Sustainabiliy at CSU</h2>
-  </div>
+ <div class="row" style="height:20px;">
  </div>
- <div class="row" style="height: 550px;">
-  <div class="col-md-8">
-   <br><br>
+ <div class="row" style="height: 540px;">
+  <div class="col-md-8 text-center">
+   <p id="CSU" style="color: #1d7a0f; font-size: 36px">Sustainabiliy at CSU</p>
    <p class="sustSection">Colorado State University is among the most highly regarded when it comes to sustainability, and we're very proud to say it!</p>
    <p class="sustSection">CSU is ranked #1 by <a href="https://stars.aashe.org/institutions/participants-and-reports/?sort=rating" target="_blank" style="text-decoration: none;">STARS</a>, a transparent organization that guages an institution's efforts towards Sustainability. CSU is the <strong> only </strong> University or instituation to be given a <span class="platColor">Platinum</span> rating, and we've received it two years in a row. The effort that CSU puts forth certainly shows! Take a look at <a href="https://green.colostate.edu/" target="_blank" style="text-decoration:none; color: #1d7a0f;">Green.Colostate.edu</a> for more info about CSU's dedication.</p>
-   <br>
    <p class="sustSection">Whether it be our solar farm, industrial composter (Oscar!), 42 departments conducting research related to sustainability, or our Platinum-rated bike-friendly campus, CSU has made a statement that sustainability is a top priority.</p>
-   <br><br><br>
-  </div>
-   <div class="column" style=" position: absolute; right: 125px; float: right";>
-     <img src="../img/sustainability.jpg" style="width:100%" onclick="openModal();currentSlide(1)" class="hover-shadow cursor">
-   </div>
-   <div class="hidden-ms">
-    <div class="col-md-4 text-align: center;">
-     <p style="position: absolute; top: 450px; right: 200px; color:#000;"><strong>Take a look at some awesome photos!</strong></p>
-    </div>
-   </div>
-  <div class="hidden-ms">
+   <br>
    <div class="row">
-    <div class="col-md-8 text-center">
-     <img src="../img/sustBanner.jpg" style="position: absolute; left: 166px; top: -60px; margin-left: 20px; margin-bottom: 40px;">
+      <div class="col-md-6 col-md-offset-2 hidden-xs hidden-sm">
+     <img src="../img/sustBanner.jpg">
     </div>
    </div>
   </div>
- </div>
+   <div class="col-md-4 hidden-xs hidden-sm">
+     <img src="../img/sustainability.jpg" style="width: 90%" onclick="openModal();currentSlide(1)" class="hover-shadow cursor">
+   </div>
+  </div>
+  <div class="row" style="height:20px;">
+  </div>
 </div>
 
 <div id="myModal" class="modalL">
@@ -344,42 +350,70 @@
   <h3 class="h3Par2">So, what's the Sustainability Floor all about?</h3>
   <br><br>
   
-  <div class="row" style="height: 300px;">
-   <div class="col-md-4 text-center" style="font-size: 85px; right: 40px;">
-   <p class="text-center"><span class="glyphicon glyphicon-tree-conifer"></span></p>
+  <!-- New row -->
+  
+  <div class="row">
+  
+   <!--- 1/3 --->
+   <div class="col-md-4 col-xs-3 text-center" style="font-size:95px;">
+    <div class="img__wrap">
+     <p class="img__desciption"><span class="glyphicon glyphicon-tree-conifer"></span></p>
+	</div>
    </div>
-   <div class="col-md-4 text-center" style="font-size: 85px;">
+   
+   <!--- 2/3 --->
+   <div class="col-md-4 col-xs-3 col-xs-offset-6 col-ms-offset-0 col-md-offset-0 col-lg-offset-0 text-center" style="font-size: 95px;">
    <p class="text-center">
     <a rel="popover" class="in" style="color: #fff;">
      <span class="glyphicon glyphicon-leaf"></span>
     </a>
    </p>
    </div>
-   <div class="col-md-4 text-center" style="font-size: 85px; left: 40px;">
+   
+   
+   <!--- 3/3 mobile version --->
+   <div class="row hidden-ms hidden-md hidden-lg col-xs-4 col-xs-offset-4 text-center" style="height:50px; font-size:95px;top:60px;bottom:30px;">
+    <p class="text-center"><span class="glyphicon glyphicon-trash"></span></p>
+   </div>
+   
+   <!--- 3/3 large screen version--->
+   <div class="hidden-xs col-md-3 col-md-offset-1 text-center" style="font-size: 95px;">
    <p class="text-center"><span class="glyphicon glyphicon-trash"></span></p>
    </div>
+   
   </div>
 
+  
+  <br><br><br><br><br>
+  
+  
+  <!-- New row -->
+  
   <div class="row" style="height: 200px;"> 
-   <div class="col-md-6 text-center" style="font-size: 85px;">
+  
+   <div class="col-md-6 col-xs-3 text-center" style="font-size: 95px;">
    <p class="text-center"><span class="glyphicon glyphicon-grain"></span></p>
    </div>
-   <div class="col-md-6 text-center" style="font-size: 85px;">
+   
+
+   <div class="col-md-6 col-xs-3 col-xs-offset-6 col-ms-offset-0 col-md-offset-0 col-lg-offset-0 text-center" style="font-size: 95px;">
    <p class="text-center"><span class="glyphicon glyphicon-circle-arrow-right"></span></p>
    </div>
+   
   </div>
+  
  </div>
 </div>
 
 <div id="LVLeaders" class="container">
   <h3 class="text-center" style="font-size: 30px;">About your floor leadership</h3><br> 
   <ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#home">Luke</a></li>
+    <li class="active"><a data-toggle="tab" href="#menu0">Luke</a></li>
     <li><a data-toggle="tab" href="#menu1">Hannah</a></li>
     <li><a data-toggle="tab" href="#menu2">Saphyre</a></li>
   </ul>
   <div class="tab-content">
-    <div id="home" class="tab-pane fade in active">
+    <div id="menu0" class="tab-pane fade active">
       <h2>Luke Ewan, Resident Assistant</h2>
       <p>Here's where I talk about myself. Well, how does one really do that? I think it all starts with some solid deflection and I really enjoy that. Let me tell you something I've learned about deflecting from this podcast I heard the other night...</p>
     </div>
