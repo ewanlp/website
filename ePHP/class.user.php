@@ -28,19 +28,8 @@ class USER
   $stmt = $this->conn->lastInsertId();
   return $stmt;
  }
+ 
 
- 
- public function guest() {
-	 
-	 $_SESSION['guest'] = true;
- }
- 
- public function checkGuest() {
-	 if (isset($_SESSION['guest'])) {
-		 return true;
-	 }
-	 return false;
- }
  
  //function that takes user info, and executes it. This will put info in the user table! Makes a new user in db
  public function register($first,$last,$uname,$email,$upass,$code)
@@ -90,6 +79,7 @@ class USER
      if($userRow['userPass']==md5($upass))
      {
       $_SESSION['userSession'] = $userRow['userID'];
+	  $_SESSION['guest'] = false;
 	  //if the user info is all correct...
       return true;
      }
@@ -138,7 +128,9 @@ class USER
   session_destroy();
   $_SESSION['userSession'] = false;
  }
- 
+  public function checkGuest() {
+		 return false;
+ }
 
   function send_mail($email,$message,$subject) {
 	require '../mailer/class.phpmailer.php';
