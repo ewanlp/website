@@ -58,23 +58,72 @@ if(isset($_GET['id']) && isset($_GET['code']))
 ?>
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Confirm Registration</title>
-    <!-- Bootstrap -->
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
-    <link href="assets/styles.css" rel="stylesheet" media="screen">
-     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
-  </head>
-  <body id="login">
-    <div class="container">
-  <?php if(isset($msg)) { echo $msg; } ?>
-    </div> <!-- /container -->
-    <script src="vendors/jquery-1.9.1.min.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
-  </body>
+<head>
+	<title>Welcome Home</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/landing.css">
+</head>
+
+<body>
+	
+	<div class="container container-table">
+	
+		<div class="row vertical-center-row">
+		  <div class="text-center col-md-4 col-md-offset-4">
+		    <h1 class="h1-heading">Welcome</h1>
+			
+
+			<!-- Trigger the modal with a button -->
+ 			<a class="btn1 btn-block" href="#skModal" id="skBtn"><strong>Continue to the Sustainability Website!</strong></a>
+
+		
+		</div>
+	</div>
+</div>
+
+
+<script>
+$(document).ready(function(){
+    $("#skBtn").click(function(){
+        $("#skModal").modal();
+    });
+});
+</script>
+
+
+<script>
+$(document).ready(function(){
+    $("#myBtn").click(function(){
+        $("#myModal").modal();
+    });
+});
+</script>
+
+<script>
+
+$(document).ready(function () {
+
+    $('#openBtn').click(function () {
+        $('#myModal').modal({
+            show: true
+        })
+    });
+
+        $(document).on('show.bs.modal', '.modal', function (event) {
+            var zIndex = 1040 + (10 * $('.modal:visible').length);
+            $(this).css('z-index', zIndex);
+            setTimeout(function() {
+                $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+            }, 0);
+        });
+});
+
+</script>
+
+</body>
+
 </html>
+
