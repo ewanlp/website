@@ -14,6 +14,7 @@ if($user_login->is_logged_in()!="")
 /*****************    The skip button     *****************/
 
 if(isset($_POST['btn-skip'])) {
+	$_SESSION['guest'] = 1;
 	$user_login->redirect('pages/home.php');
 }
 
@@ -40,6 +41,8 @@ if(isset($_POST['btn-login']))
 
 if (isset($_POST['btn-signUp'])) {
 	
+	
+	//all of these v's hold info that will be used below
 	$first = trim($_POST['txtFN']);
 	$last = trim($_POST['txtLN']);
 	$uname = trim($_POST['txtuname']);
@@ -47,8 +50,11 @@ if (isset($_POST['btn-signUp'])) {
 	$upass = trim($_POST['txtpass']);
 	$code = md5(uniqid(rand()));
 	
+	//where.. means where userEmail (db phrase) use email_id as a place holder.
 	$stmt = $user_login->runQuery("SELECT * FROM tbl_users WHERE userEmail=:email_id");
+	//selects the userEmail (email_id is the placeholder) that is equal to email
 	$stmt->execute(array(":email_id"=>$email));
+	//the actual execution
 	$row = $stmt->fetch(PDO::FETCH_ASSOC);
 	
 	
@@ -233,7 +239,7 @@ if(isset($_POST['btn-fpass'])) {
 						  <br>
 						  <input type="text" class="form-control" id="usrname" placeholder="Enter email" name="txtemail">
 						</div>
-						  <button type="submit" class="btn btn-success btn-block" name="btn-fpass"><span class="glyphicon glyphicon-off" href="pS"></span> Send Email Again</button>
+						  <button type="submit" class="btn btn-success btn-block" name="btn-fpass" href="pS"><span class="glyphicon glyphicon-off" ></span> Send Email Again</button>
 					  </form>
 					  
 					</div>
