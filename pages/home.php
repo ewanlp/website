@@ -50,12 +50,21 @@ if((!$user_home->is_logged_in()) && ($user_home->checkGuest()))
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">MORE
           <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Board Games</a></li>
-            <li><a href="#">more Board Games</a></li>
+            <li><a href="data.php">Data</a></li>
+            <li><a href="#">more Date</a></li>
             <li><a href="#">and even moreeee</a></li> 
           </ul>
         </li>
-        <li><a href="../ePHP/logout.php"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+		
+		
+		<?php if(!$user_home->is_logged_in()) { ?>
+		<li><a href="../index.php"><span class="glyphicon glyphicon-user"></span>Log in</a></li>
+		<?php }
+		else { ?>
+		<li><a href="../ePHP/logout.php"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+		<?php } ?>
+		
+        
       </ul>
     </div>
   </div>
@@ -127,7 +136,7 @@ if((!$user_home->is_logged_in()) && ($user_home->checkGuest()))
     <div class="col-sm-6">
       <p class="text-center" style="font-size: 30px;"><strong>Green Warrior</strong></p><br>
       <a href="#demo" data-toggle="collapse">
-        <img src="../img/gW.png" class="img person" alt="Green Warrior" width="400" height="349">
+        <img src="../img/gW.png" class="img person" alt="Green Warrior" style="width:400px; height:350px">
       </a>
       <div id="demo" class="collapse">
         <p style="color: #1d7a0f;">Green Warrior is a campaign held by the Eco Leader program here on campus, in the Fall. The goal of the campaign is for <strong>you</strong> to consider your everyday habits and how they impact the environment</p>
@@ -137,7 +146,7 @@ if((!$user_home->is_logged_in()) && ($user_home->checkGuest()))
     <div class="col-sm-6">
       <p class="text-center" style="font-size: 30px;"><strong>Eco Leaders</strong></p><br>
       <a href="#demo2" data-toggle="collapse">
-        <img src="../img/eco-leaders-text.png" class="img person" alt="Eco Leader" width="400" height="349">
+        <img src="../img/eco-leaders-text.png" class="img person" alt="Eco Leader" style="width:400px; height:350px">
       </a>
       <div id="demo2" class="collapse">
         <p style="color: #1d7a0f;">The Eco Leader program is an on-campus organization that raises awareness of sustainability in the residence halls. There is an Eco Leader living in every residence hall on campus (the Eco Leader of our hall, Saphyre, lives on our floor).</p>
@@ -355,30 +364,34 @@ if((!$user_home->is_logged_in()) && ($user_home->checkGuest()))
   <div class="row">
   
    <!--- 1/3 --->
-   <div class="col-md-4 col-xs-3 text-center" style="font-size:95px;">
-    <div class="img__wrap">
-     <p class="img__desciption"><span class="glyphicon glyphicon-tree-conifer"></span></p>
-	</div>
+   <div class="col-md-4 col-xs-3 text-center" style="font-size:105px;">
+    <a data-toggle="popoverLeaf" tigger="hover" placement="bottom" data-container="body" title="Not sure yet" data-content="Short and sweet info">
+     <span style="color:white;" class="glyphicon glyphicon-leaf"></span>
+    </a>
    </div>
    
    <!--- 2/3 --->
-   <div class="col-md-4 col-xs-3 col-xs-offset-6 col-ms-offset-0 col-md-offset-0 col-lg-offset-0 text-center" style="font-size: 95px;">
+   <div class="col-md-4 col-xs-3 col-xs-offset-6 col-ms-offset-0 col-md-offset-0 col-lg-offset-0 text-center" style="font-size: 105px;">
    <p class="text-center">
-    <a rel="popover" class="in" style="color: #fff;">
-     <span class="glyphicon glyphicon-leaf"></span>
+    <a data-toggle="popoverSearch" tigger="hover" placement="bottom" data-container="body" title="Education" data-content="Education and outreach are key in creating awareness about sustainability.">
+     <span style="color:white;" class="glyphicon glyphicon-search"></span>
     </a>
    </p>
    </div>
    
    
    <!--- 3/3 mobile version --->
-   <div class="row hidden-ms hidden-md hidden-lg col-xs-4 col-xs-offset-4 text-center" style="height:50px; font-size:95px;top:60px;bottom:30px;">
-    <p class="text-center"><span class="glyphicon glyphicon-trash"></span></p>
+   <div class="row hidden-ms hidden-md hidden-lg col-xs-4 col-xs-offset-4 text-center" style="height:50px; font-size:105px;top:60px;bottom:30px;">
+    <a data-toggle="popoverTrash" tigger="hover" placement="bottom" data-container="body" title="Waste" data-content="Whether it compost, batteries, or anything in between, there's a bin for everything!">
+     <span style="color:white;" class="glyphicon glyphicon-trash"></span>
+    </a>
    </div>
    
    <!--- 3/3 large screen version--->
-   <div class="hidden-xs col-md-3 col-md-offset-1 text-center" style="font-size: 95px;">
-   <p class="text-center"><span class="glyphicon glyphicon-trash"></span></p>
+   <div class="hidden-xs col-md-3 col-md-offset-1 text-center" style="font-size: 105px;">
+   <a data-toggle="popoverTrash" tigger="hover" placement="bottom" data-container="body" title="Waste" data-content="Whether it compost, batteries, or anything in between, there's a bin for everything!">
+     <span style="color:white;" class="glyphicon glyphicon-trash"></span>
+    </a>
    </div>
    
   </div>
@@ -391,26 +404,43 @@ if((!$user_home->is_logged_in()) && ($user_home->checkGuest()))
   
   <div class="row" style="height: 200px;"> 
   
-   <div class="col-md-6 col-xs-3 text-center" style="font-size: 95px;">
-   <p class="text-center"><span class="glyphicon glyphicon-grain"></span></p>
+   <div class="col-md-6 col-xs-3 text-center" style="font-size: 105px;">
+    <a data-toggle="popoverGrain" tigger="hover" placement="bottom" data-container="body" title="Gardening" data-content="The Sustainability Floor has its' own garden, used for education, and stress relief.">
+     <span style="color:white;"  class="glyphicon glyphicon-grain"></span>
+    </a>
    </div>
    
 
-   <div class="col-md-6 col-xs-3 col-xs-offset-6 col-ms-offset-0 col-md-offset-0 col-lg-offset-0 text-center" style="font-size: 95px;">
-   <p class="text-center"><span class="glyphicon glyphicon-circle-arrow-right"></span></p>
+   <div class="col-md-6 col-xs-3 col-xs-offset-6 col-ms-offset-0 col-md-offset-0 col-lg-offset-0 text-center" style="font-size: 105px;">
+    <a data-toggle="popoverArrow" tigger="hover" placement="bottom" data-container="body" title="Transportation?" data-content="Not sure if this belongs here, but here ya go">
+     <span style="color:white;" class="glyphicon glyphicon-circle-arrow-right"></span>
+    </a>
    </div>
    
+  </div>
+  
+  <div class="row" style="height: 40px;">
+  
+	<div class="col-md-12">
+		<p style="font-size: 24px; color: white;">More detailed info below.</p>
+	</div>
+  
   </div>
   
  </div>
 </div>
 
 <div id="LVLeaders" class="container">
-  <h3 class="text-center" style="font-size: 30px;">About your floor leadership</h3><br> 
+  <h3 class="text-center" style="font-size: 30px;">About your floor and floor leadership</h3><br> 
   <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#menu0">Luke</a></li>
     <li><a data-toggle="tab" href="#menu1">Hannah</a></li>
     <li><a data-toggle="tab" href="#menu2">Saphyre</a></li>
+	<li><a data-toggle="tab" href="#menu3">Not too sure</a></li>
+	<li><a data-toggle="tab" href="#menu4">Education</a></li>
+	<li><a data-toggle="tab" href="#menu5">Waste</a></li>
+	<li><a data-toggle="tab" href="#menu6">Gardening</a></li>
+	<li><a data-toggle="tab" href="#menu7">Transportation</a></li>
   </ul>
   <div class="tab-content">
     <div id="menu0" class="tab-pane fade active">
@@ -424,6 +454,27 @@ if((!$user_home->is_logged_in()) && ($user_home->checkGuest()))
     <div id="menu2" class="tab-pane fade">
       <h2>Saphyre Kelly, Eco Leader of Pinon Hall</h2>
       <p>*Insert info here, Saphyre* Eventually we can write what we enjoy doing in our spare time, who we are as people, and why we're in the positions that we're in (and why we enjoy them).</p>
+    </div>
+	<div id="menu3" class="tab-pane fade">
+      <h2>Saphyre Kelly, Eco Leader of Pinon Hall</h2>
+      <p>A brief description of whatever the tab says should go here. More detailed than the tooltip that popped up on the parralax section above, but not too detailed. Ya know. </p>
+    </div>
+	<div id="menu4" class="tab-pane fade">
+      <h2>Education</h2>
+      <p>Education is key in establishing awareness about sustainability. The Sustainability Floor takes pride in educating the surrounding community in topics ranging from
+	  how to properly recycle here at CSU, to living sustainably at home over the summer. The floor has done many programs reaching out to the community... More to be written soon.</p>
+    </div>
+	<div id="menu5" class="tab-pane fade">
+      <h2>Waste</h2>
+      <p>A brief description of whatever the tab says should go here. More detailed than the tooltip that popped up on the parralax section above, but not too detailed. Ya know. </p>
+    </div>
+	<div id="menu6" class="tab-pane fade">
+      <h2>The Garden</h2>
+      <p>A brief description of whatever the tab says should go here. More detailed than the tooltip that popped up on the parralax section above, but not too detailed. Ya know. </p>
+    </div>
+	<div id="menu7" class="tab-pane fade">
+      <h2>Transportation</h2>
+      <p>A brief description of whatever the tab says should go here. More detailed than the tooltip that popped up on the parralax section above, but not too detailed. Ya know. </p>
     </div>
   </div>
 </div>
@@ -476,14 +527,28 @@ function showSlides(n) {
 </script>
 
 <script>
-$('document').ready(function() {
-    var popOverSettings = {
-        placement: 'bottom',
-        selector: '.in',
-        title:'Look at this freaking leaf! It has text pop up under it! thats so kewl!!#R@ The others will have this soon.',
-        trigger: "hover",
-    };
-$(this).popover(popOverSettings);
+$(document).ready(function(){
+    $('[data-toggle="popoverLeaf"]').popover();   
+});
+</script>
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popoverSearch"]').popover();   
+});
+</script>
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popoverTrash"]').popover();   
+});
+</script>
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popoverGrain"]').popover();   
+});
+</script>
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popoverArrow"]').popover();   
 });
 </script>
 
