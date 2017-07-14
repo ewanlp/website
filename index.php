@@ -361,7 +361,7 @@ if(isset($_POST['btn-fpass'])) {
 
 						<div class="form-group">
 						  <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
-						  <input type="password" class="form-control" id="psw" placeholder="Enter password" name="txtpass">
+						  <input type="password" class="form-control" id="psw" placeholder="Enter Password" name="txtpass">
 						</div>
 						
 						<div class="form-group">
