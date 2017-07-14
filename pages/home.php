@@ -30,6 +30,10 @@ if((!$user_home->is_logged_in()) && ($user_home->checkGuest()))
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
 
+
+<!-------------- The naviagtion bar that appears at the top of the screen - need to add a logo! ---------->
+
+
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -69,6 +73,12 @@ if((!$user_home->is_logged_in()) && ($user_home->checkGuest()))
     </div>
   </div>
 </nav>
+
+
+
+<!-------------- This is rotating photo slider, images go here ----------------->
+
+
 
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <!-- Indicators -->
@@ -126,7 +136,12 @@ if((!$user_home->is_logged_in()) && ($user_home->checkGuest()))
     </a>
 </div>
 
-<!-- Container (The intro Section) -->
+
+
+<!-------------- Container (The intro Section) Section describing The floor and has images below it ------------->
+
+
+
 <div id="intro" class="container text-center">
   <h1>The Sustainability Floor of Pinon 1 West</h1>
   <p>The Sustainability Floor is part of the College of Natural Science Learning Community here in Laurel Village. We're a dedicated floor to sustainability. Residents who live on this floor have the opportunity to take on and dive-in to some different projects, programs, and initiatives throughout the school year - and beyond. The floor is only as old as Laurel Village (this will be its' 4th year) and has been growing ever since then. The floor features some unique aspects that make it truly one of a kind. Some of the photos give a little more perspective.<br><br>(For now, I'll leave it the green warrior and eco leader pics up, but the intention is to put pictures of some of the sustainable features we have there - such as the wood floors, the garden, and perhaps the lounge or something.)</p>
@@ -160,12 +175,12 @@ if((!$user_home->is_logged_in()) && ($user_home->checkGuest()))
 
 
 
+<!------------- Container Paralax 1 Section) Upcoming events on the floor and in the community ----------->
 
 
 
 
 
-<!----- Container Paralax 1 Section) ----->
 <div id="" class="bg-1">
   <div class="container">
     <h3 class="h3Par1">Upcoming Events</h3>
@@ -200,7 +215,10 @@ if((!$user_home->is_logged_in()) && ($user_home->checkGuest()))
   </div>
   
 
-  <!-- Modal -->
+  <!-------------- Start of the Modals ------------->
+  
+  
+  
   <div class="modal fade" id="myModal1" role="dialog">
     <div class="modal-dialog">
     
@@ -297,7 +315,10 @@ if((!$user_home->is_logged_in()) && ($user_home->checkGuest()))
 
 
 
-<!-- Section here about how sust CSU is with modal! -->
+<!------------ CSU sustainability section ---------------->
+
+
+
 <div class="cotainer">
  <div class="row" style="height:20px;">
  </div>
@@ -353,7 +374,10 @@ if((!$user_home->is_logged_in()) && ($user_home->checkGuest()))
 </div>
 
 
-<!----- Container (Parallax 2 Section) ------->
+<!---------------- Container (Parallax 2 Section) with the little icons ---------------->
+
+
+
 <div id="TheFloor" class="bg-2">
  <div class="container text-center">
   <h3 class="h3Par2">So, what's the Sustainability Floor all about?</h3>
@@ -364,9 +388,9 @@ if((!$user_home->is_logged_in()) && ($user_home->checkGuest()))
   <div class="row">
   
    <!--- 1/3 --->
-   <div class="col-md-4 col-xs-3 text-center" style="font-size:105px;">
+   <div class="col-md-4 col-xs-3 text-center" style="font-size:105px; cursor: pointer;">
     <a data-toggle="popoverLeaf" tigger="hover" placement="bottom" data-container="body" title="Not sure yet" data-content="Short and sweet info">
-     <span style="color:white;" class="glyphicon glyphicon-leaf"></span>
+     <span style="color:white; cursor: pointer" class="glyphicon glyphicon-leaf"></span>
     </a>
    </div>
    
@@ -374,7 +398,7 @@ if((!$user_home->is_logged_in()) && ($user_home->checkGuest()))
    <div class="col-md-4 col-xs-3 col-xs-offset-6 col-ms-offset-0 col-md-offset-0 col-lg-offset-0 text-center" style="font-size: 105px;">
    <p class="text-center">
     <a data-toggle="popoverSearch" tigger="hover" placement="bottom" data-container="body" title="Education" data-content="Education and outreach are key in creating awareness about sustainability.">
-     <span style="color:white;" class="glyphicon glyphicon-search"></span>
+     <span style="color:white; cursor: pointer;" class="glyphicon glyphicon-search"></span>
     </a>
    </p>
    </div>
@@ -383,14 +407,14 @@ if((!$user_home->is_logged_in()) && ($user_home->checkGuest()))
    <!--- 3/3 mobile version --->
    <div class="row hidden-ms hidden-md hidden-lg col-xs-4 col-xs-offset-4 text-center" style="height:50px; font-size:105px;top:60px;bottom:30px;">
     <a data-toggle="popoverTrash" tigger="hover" placement="bottom" data-container="body" title="Waste" data-content="Whether it compost, batteries, or anything in between, there's a bin for everything!">
-     <span style="color:white;" class="glyphicon glyphicon-trash"></span>
+     <span style="color:white; cursor: pointer;" class="glyphicon glyphicon-trash"></span>
     </a>
    </div>
    
    <!--- 3/3 large screen version--->
    <div class="hidden-xs col-md-3 col-md-offset-1 text-center" style="font-size: 105px;">
    <a data-toggle="popoverTrash" tigger="hover" placement="bottom" data-container="body" title="Waste" data-content="Whether it compost, batteries, or anything in between, there's a bin for everything!">
-     <span style="color:white;" class="glyphicon glyphicon-trash"></span>
+     <span style="color:white; cursor: pointer;" class="glyphicon glyphicon-trash"></span>
     </a>
    </div>
    
@@ -406,14 +430,14 @@ if((!$user_home->is_logged_in()) && ($user_home->checkGuest()))
   
    <div class="col-md-6 col-xs-3 text-center" style="font-size: 105px;">
     <a data-toggle="popoverGrain" tigger="hover" placement="bottom" data-container="body" title="Gardening" data-content="The Sustainability Floor has its' own garden, used for education, and stress relief.">
-     <span style="color:white;"  class="glyphicon glyphicon-grain"></span>
+     <span style="color:white; cursor: pointer;"  class="glyphicon glyphicon-grain"></span>
     </a>
    </div>
    
 
    <div class="col-md-6 col-xs-3 col-xs-offset-6 col-ms-offset-0 col-md-offset-0 col-lg-offset-0 text-center" style="font-size: 105px;">
     <a data-toggle="popoverArrow" tigger="hover" placement="bottom" data-container="body" title="Transportation?" data-content="Not sure if this belongs here, but here ya go">
-     <span style="color:white;" class="glyphicon glyphicon-circle-arrow-right"></span>
+     <span style="color:white; cursor: pointer;" class="glyphicon glyphicon-circle-arrow-right"></span>
     </a>
    </div>
    
@@ -429,6 +453,12 @@ if((!$user_home->is_logged_in()) && ($user_home->checkGuest()))
   
  </div>
 </div>
+
+
+
+<!-- Section for Lv Leaders and description of the floor! -->
+
+
 
 <div id="LVLeaders" class="container">
   <h3 class="text-center" style="font-size: 30px;">About your floor and floor leadership</h3><br> 
