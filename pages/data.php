@@ -64,6 +64,84 @@ if (isset($_POST["month"])){
 	$w3Stmt->execute();
 }
 
+if (isset($_POST['btn-signUp'])) {
+	
+	
+	//all of these v's hold info that will be used below
+	$first = trim($_POST['txtFN']);
+	$last = trim($_POST['txtLN']);
+	$uname = trim($_POST['txtuname']);
+	$email = trim($_POST['txtemail']);
+	$upass = trim($_POST['txtpass']);
+	$code = md5(uniqid(rand()));
+	
+	//where.. means where userEmail (db phrase) use email_id as a place holder.
+	$stmt4 = $user_data->runQuery("SELECT * FROM tbl_users WHERE userEmail=:email_id");
+	//selects the userEmail (email_id is the placeholder) that is equal to email
+	$stmt4->execute(array(":email_id"=>$email));
+	//the actual execution
+	$row = $stmt4->fetch(PDO::FETCH_ASSOC);
+	$user_data->register($first,$last,$uname,$email,$upass,$code);
+}
+
+if (isset($_POST['btn-XsignUp'])) {
+	
+	
+	//all of these v's hold info that will be used below
+	$first = trim($_POST['txtFN']);
+	$last = trim($_POST['txtLN']);
+	$uname = trim($_POST['txtuname']);
+	$email = trim($_POST['txtemail']);
+	$upass = trim($_POST['txtpass']);
+	$code = md5(uniqid(rand()));
+	
+	$regExp = "[Xx]celenergy";
+	
+	if (preg_match('/xcelenergy/i',$email)) {
+		$val = 'Y';
+		
+		$stmt5 = $user_data->runQuery("SELECT * FROM tbl_users WHERE userEmail=:email_id");
+		//selects the userEmail (email_id is the placeholder) that is equal to email
+		$stmt5->execute(array(":email_id"=>$email));
+		//the actual execution
+		$row = $stmt5->fetch(PDO::FETCH_ASSOC);
+		
+		try {
+					
+			$password = md5($upass);
+			$stmt5 = $user_data->runQuery("INSERT INTO xcelusers(fName,lName,userName,userEmail,userPass,tokenCode, val) 
+															VALUES(:fN, :lN, :user_name, :user_mail, :user_pass, :active_code, :value)");
+			$stmt5->bindparam(":fN",$first);
+			$stmt5->bindparam(":lN",$last);
+			$stmt5->bindparam(":user_name",$uname);
+			$stmt5->bindparam(":user_mail",$email);
+			$stmt5->bindparam(":user_pass",$password);
+			$stmt5->bindparam(":active_code",$code);
+			$stmt5->bindparam(":value",$val);
+			//once execute is called, then everything gets bound to e/o uN to uN and so on
+			$stmt5->execute();
+			
+		}catch(PDOException $ex){
+			echo $ex->getMessage();
+		}
+	}
+	
+	else {
+		$stmt5 = $user_data->runQuery("SELECT * FROM tbl_users WHERE userEmail=:email_id");
+		//selects the userEmail (email_id is the placeholder) that is equal to email
+		$stmt5->execute(array(":email_id"=>$email));
+		//the actual execution
+		$row = $stmt5->fetch(PDO::FETCH_ASSOC);
+		$user_data->register($first,$last,$uname,$email,$upass,$code);
+	}
+	
+}
+
+$stmtX = $user_data->runQuery("SELECT fName,lName,userName,userEmail FROM xcelusers ORDER BY lName");
+$stmtX->execute();
+
+
+
 ?>
 <html>
 <head>
@@ -98,8 +176,8 @@ if (isset($_POST["month"])){
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">MORE
           <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#"></a></li>
-            <li><a href="#"></a></li>
+            <li><a href="home.php"></a>Home Page</li>
+            <li><a href="moreData.php">More Data</a></li>
             <li><a href="#"></a></li> 
           </ul>
         </li>
@@ -206,7 +284,8 @@ if (isset($_POST["month"])){
 				</table>
 			</div>
 		</div>
-		<p>We can make this a little more dynamic - go ahead and choose what month of data you'd like to see.</p> <br></br>
+		<br><br><br>
+		<p>We can make this a little more dynamic - go ahead and choose what month of data you'd like to see.</p>
 			<form role="form" method="post">
 				<div class="form-group">
 				  <label for="select_1">Select list:</label>
@@ -225,10 +304,11 @@ if (isset($_POST["month"])){
 						<option value="Dec">Dec</option>
 					</select>
 				</div>
-				<button type="submit" class="btn default">Query</button>
+				<button type="submit" class="btn default btn-lg btn-block">Load Query</button>
 			</form>
-			<button class="toggle-visibility" data-target="#post-details">Clode Data Table</button>
-			<div id="post-details">
+			<button type="button" class="btn btn-default btn-lg btn-block" data-toggle="collapse" data-target="#demo3">Toggle Show/Close</button>
+			<div id="demo3" class="collapse">
+			
 				<table id="names" class="table table-condensed table-hover" cellspacing="0" width="100%">
 					<thead>
 						<tr>
@@ -250,12 +330,124 @@ if (isset($_POST["month"])){
 					</tbody>
 				</table>
 			</div>
-		<br><br><br><br>
+		<br><br><br>
 		<p>
-		Just throwing some text down here to make the space look pretty!
+		Yes, that was pretty clunky and didn't function the best, but the point was to show some dynamic queries!
+		Let's try something a little more advanced - let's create a datatable on the fly and populate it.<br>
+		Go ahead and add a user - if the email is an xcel email, a different table will be updated:
 		</p>
 	</div>
   </div>
+	<div class="row collapse" id="demo4">
+		<form role="form" method="post">
+			<div class="form-group">
+			  <label for="firstName"></label>
+			  <input type="text" class="form-control" id="firstName" placeholder="Enter First Name" name="txtFN">
+			</div>
+
+			<div class="form-group">
+			  <label for="lastName"></label>
+			  <input type="text" class="form-control" id="lastName" placeholder="Enter Last Name" name="txtLN">
+			</div>
+
+			<div class="form-group">
+			  <label for="email"></label>
+			  <input type="text" class="form-control" id="email" placeholder="Enter Email" name="txtemail">
+			</div>
+			
+			<div class="form-group">
+			  <label for="usrname"></label>
+			  <input type="text" class="form-control" id="usrname" placeholder="Enter User Name" name="txtuname">
+			</div>
+
+			<div class="form-group">
+			  <label for="psw"></label>
+			  <input type="password" class="form-control" id="psw" placeholder="Enter password" name="txtpass">
+			</div>
+			
+			<div class="form-group">
+			  <label for="psw"></label>
+			  <input type="password" class="form-control" id="psw" placeholder="Confirm Password">
+			</div>
+			  <button type="submit" class="btn default btn-lg btn-block" name="btn-signUp">Confim</button>
+		</form>
+	</div>
+	
+	<button type="button" class="btn btn-default btn-lg btn-block" data-toggle="collapse" data-target="#demo4">Open/Close Signup Form</button>
+	<br>
+	<p>Notice how the table at the top of page refreshed when a user was successfully added?
+		Now, we do some even better, more dynamic things. Let's make a whole new row (or table)
+		somewhere else, if that user has an email ending in xcelenergy.com theyll be added to it.
+	</p>
+	
+	<div class="row collapse" id="demo5">
+		<form role="form" method="post">
+			<div class="form-group">
+			  <label for="firstName"></label>
+			  <input type="text" class="form-control" id="firstName" placeholder="Enter First Name" name="txtFN">
+			</div>
+
+			<div class="form-group">
+			  <label for="lastName"></label>
+			  <input type="text" class="form-control" id="lastName" placeholder="Enter Last Name" name="txtLN">
+			</div>
+
+			<div class="form-group">
+			  <label for="email"></label>
+			  <input type="text" class="form-control" id="email" placeholder="Enter Email" name="txtemail">
+			</div>
+			
+			<div class="form-group">
+			  <label for="usrname"></label>
+			  <input type="text" class="form-control" id="usrname" placeholder="Enter User Name" name="txtuname">
+			</div>
+
+			<div class="form-group">
+			  <label for="psw"></label>
+			  <input type="password" class="form-control" id="psw" placeholder="Enter password" name="txtpass">
+			</div>
+			
+			<div class="form-group">
+			  <label for="psw"></label>
+			  <input type="password" class="form-control" id="psw" placeholder="Confirm Password">
+			</div>
+			  <button type="submit" class="btn default btn-lg btn-block" name="btn-XsignUp">Confim</button>
+		</form>
+	</div>
+	
+	<button type="button" class="btn btn-default btn-lg btn-block" data-toggle="collapse" data-target="#demo5">Open/Close Xcel Signup</button>
+	
+	<p>
+	<br>
+		Here's the table for users with an xcelenergy email. It also gets dynamically updated with each new additional user.
+	<br>
+	</p>
+	
+	<table id="names" class="table table-striped table-bordered table-responsive" cellspacing="0" width="100%">
+			<thead>
+				<tr>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>User Name</th>
+					<th>Email</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php while ($row = $stmtX->fetch(PDO::FETCH_ASSOC)){ ?>
+					<tr>
+						<td><?php echo htmlspecialchars($row['fName']) ?></td>
+						<td><?php echo htmlspecialchars($row['lName']) ?></td>
+						<td><?php echo htmlspecialchars($row['userName']) ?></td>
+						<td><?php echo htmlspecialchars($row['userEmail']) ?></td>
+					</tr>
+				<?php } ?>
+			</tbody>
+		</table>
+	
+	
+	
+	
+	
 </div>
 
 <script>
